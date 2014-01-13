@@ -4,8 +4,6 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "supportify"
-require "better_errors"
-require "binding_of_caller"
 
 module Dummy
   class Application < Rails::Application
