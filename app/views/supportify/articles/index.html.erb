@@ -1,8 +1,10 @@
+<%= select_tag :set_locale, options_for_select(Supportify.locales, I18n.locale) %>
 <h1>Listing articles</h1>
 
 <table>
   <thead>
     <tr>
+      <th>Thumbnail</th>
       <th>Title</th>
       <th>Slug</th>
       <th>Locale</th>
@@ -18,6 +20,7 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
+        <td><%= image_tag article.image_url(:thumb) %> </td>
         <td><%= article.title %></td>
         <td><%= article.slug %></td>
         <td><%= article.locale %></td>

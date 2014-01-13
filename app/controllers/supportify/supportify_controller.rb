@@ -1,11 +1,8 @@
-require_dependency 'cancan'
-require_dependency 'simple_form'
-
 module Supportify
   class SupportifyController < ApplicationController
   
 
-    # before_filter :set_back_office_locale
+    before_filter :set_locale
 
     helper_method :current_ability
 
@@ -23,9 +20,10 @@ module Supportify
 
     protected
     
-    # def set_back_office_locale
-    #   params[:back_office_locale] ||= I18n.default_locale 
-    # end
+    def set_locale
+      params[:locale] ||= I18n.default_locale 
+      I18n.locale = params[:locale]
+    end
 
     def supportify_user
       self.send(Supportify.current_user_method)

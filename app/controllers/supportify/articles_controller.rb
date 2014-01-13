@@ -51,7 +51,7 @@ module Supportify
     private
       # Only allow a trusted parameter "white list" through.
       def article_params
-        params.require(:article).permit(:title, :slug, :locale, :body, :published)
+        params.require(:article).permit(:title, :slug, :locale, :body, :published, :image, :image_cache)
       end
   end
 end

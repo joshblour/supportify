@@ -12,26 +12,19 @@
   <% end %>
   
   <%= f.input :title %>
-  <%= f.input :slug, disabled: true %>
+  <%= f.input :slug, input_html: {readonly: true} %>
   <%= f.input :locale, collection: Supportify.locales %>
-  <%= f.input :body, input_html: {class: 'tinymce', :rows => 40, :cols => 120} %>
-  <%= f.input :published %>
+  <p>
+    <label>Thumbnail</label>
+    <%= image_tag(@article.image_url(:thumb)) if @article.image? %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+  </p>
+  <p>  
+  <%= f.cktext_area :body, :class => "someclass", :ckeditor => {:language => I18n.locale} %>
+  </p>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-
-<script type="text/javascript">
-tinymce.init({
-    selector: ".tinymce",
-    plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste"
-    ],
-    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-    
- });
-</script>
