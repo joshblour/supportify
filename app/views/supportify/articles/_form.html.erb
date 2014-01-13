@@ -14,6 +14,10 @@
   <%= f.input :title %>
   <%= f.input :slug, input_html: {readonly: true} %>
   <%= f.input :locale, collection: Supportify.locales %>
+  <%= f.input :tag_list, input_html: {data: {options: Supportify::Article.tag_counts.map(&:name)}} %>
+  <%= f.input :category_list, input_html: {data: {options: Supportify::Article.category_counts.map(&:name)}} %>
+  <%= f.input :admin_tag_list, input_html: {data: {options: Supportify::Article.admin_tag_counts.map(&:name)}} %>
+  
   <p>
     <label>Thumbnail</label>
     <%= image_tag(@article.image_url(:thumb)) if @article.image? %>

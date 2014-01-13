@@ -43,6 +43,17 @@ jQuery(function ($) { // First argument is the jQuery object
     insertParam('locale', $(this).find('option:selected').text());
   });
 
+  // TODO: Terrible. figure out how to access the data attribute from within select2
+  $.each( $('#article_tag_list, #article_category_list, #article_admin_tag_list'),
+    function (i, element) {
+      var list =  $(element).data('options')
+      $(element).select2({
+        tags: list,
+        width: '300px'   
+      });
+    }
+  );
+
 
 
 

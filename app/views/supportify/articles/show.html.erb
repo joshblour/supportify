@@ -23,6 +23,21 @@
 
 
 <p>
+  <strong>Tags:</strong>
+  <%= @article.tag_list.to_sentence %>
+</p>
+
+<p>
+  <strong>Categories:</strong>
+  <%= @article.category_list.to_sentence %>
+</p>
+
+<p>
+  <strong>Admin Tags:</strong>
+  <%= @article.admin_tag_list.to_sentence %>
+</p>
+
+<p>
   <strong>Author:</strong>
   <%= @article.author_id %>
 </p>
@@ -31,3 +46,4 @@
   <strong>Body:</strong>
   <%= @article.body.html_safe %>
 </p>
+

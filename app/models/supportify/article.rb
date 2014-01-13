@@ -1,8 +1,20 @@
 module Supportify
   class Article < ActiveRecord::Base
+    include PgSearch
+    pg_search_scope :search, 
+      against: {
+        title: 'A',
+        body: 'C'
+      }, 
+      associated_against: {
+        tags: {name: 'B'}
+      }
+    
     before_save :set_published_at
     belongs_to :author, class_name: Supportify.author_class.to_s
     mount_uploader :image, ImageUploader
+    
+    acts_as_taggable_on :tags, :categories, :admin_tags
     
     validates :title, :slug, :locale, :body, presence: true
     validates :slug, uniqueness: true
