@@ -25,7 +25,8 @@
     <%= f.hidden_field :image_cache %>
   </p>
   <p>  
-  <%= f.cktext_area :body, :class => "someclass", :ckeditor => {:language => I18n.locale} %>
+    <%= f.input :body, input_html: {class: 'ckeditor'}%>
+  <%#= f.cktext_area :body, :class => "someclass", :ckeditor => {:language => I18n.locale} %>
   </p>
 
   <div class="actions">
