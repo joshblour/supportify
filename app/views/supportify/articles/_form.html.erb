@@ -17,6 +17,7 @@
   <%= f.input :tag_list, input_html: {data: {options: Supportify::Article.tag_counts.map(&:name)}} %>
   <%= f.input :category_list, input_html: {data: {options: Supportify::Article.category_counts.map(&:name)}} %>
   <%= f.input :admin_tag_list, input_html: {data: {options: Supportify::Article.admin_tag_counts.map(&:name)}} %>
+  <%= f.input :published %>
   
   <p>
     <label>Thumbnail</label>
