@@ -11,6 +11,8 @@ module Supportify
       }
     
     before_save :set_published_at
+    after_create :create_for_other_locales
+    
     belongs_to :author, class_name: Supportify.author_class.to_s
     mount_uploader :image, ImageUploader
     
@@ -21,6 +23,10 @@ module Supportify
     validates :locale, inclusion: Supportify.locales.map(&:to_s)
     
     private
+    
+    def create_for_other_locales
+      #TODO
+    end
     
     def set_published_at
       if published_changed?

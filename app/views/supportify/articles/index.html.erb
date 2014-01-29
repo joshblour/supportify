@@ -8,7 +8,7 @@
       <th>Title</th>
       <th>Slug</th>
       <th>Locale</th>
-      <th>Body</th>
+      <th>Lists</th>
       <th>Author</th>
       <th>Published at</th>
       <th></th>
@@ -24,7 +24,11 @@
         <td><%= article.title %></td>
         <td><%= article.slug %></td>
         <td><%= article.locale %></td>
-        <td><%= article.body %></td>
+        <td>
+          Tag list: <%= article.tag_list.to_sentence %><br/>
+          Category list: <%= article.category_list.to_sentence %><br/>
+          Admin list: <%= article.admin_tag_list.to_sentence %>
+        </td>
         <td><%= article.author_id %></td>
         <td><%= article.published_at %></td>
         <td><%= link_to 'Show', article %></td>
