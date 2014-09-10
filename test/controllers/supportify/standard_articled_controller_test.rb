@@ -3,7 +3,7 @@ require 'test_helper'
 module Supportify
   class ArticlesControllerTest < ActionController::TestCase
     setup do
-      @article = Article.create
+      @article = create(:article)
     end
     
     test "standard should get index" do

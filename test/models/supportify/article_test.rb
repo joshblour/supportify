@@ -4,7 +4,7 @@ module Supportify
   class ArticleTest < ActiveSupport::TestCase
     test "updates published at if published_at changed" do
       #does not set pubslished at if not published
-      article = Article.create(published: false)
+      article = create(:article, published: false)
       assert_nil article.published_at
       
       #sets pubslished_at when published is set to true

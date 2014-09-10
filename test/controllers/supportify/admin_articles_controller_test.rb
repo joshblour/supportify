@@ -3,7 +3,7 @@ require 'test_helper'
 module Supportify
   class ArticlesControllerTest < ActionController::TestCase
     setup do
-      @article = Article.create
+      @article = create(:article)
     end
     
     test "admin should get index" do
@@ -25,7 +25,7 @@ module Supportify
       @user = User.create(role: 'admin')
       
       assert_difference('Article.count') do
-        post :create, article: { author_id: @article.author_id, body: @article.body, locale: @article.locale, published_at: @article.published_at, slug: @article.slug, title: @article.title }
+        post :create, article: { author_id: @article.author_id, body: @article.body, locale: @article.locale, published_at: @article.published_at, slug: @article.slug + '1', title: @article.title }
       end
 
       assert_redirected_to article_path(assigns(:article))
