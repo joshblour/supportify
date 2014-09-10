@@ -2,11 +2,11 @@ require_dependency "supportify/supportify_controller"
 
 module Supportify
   class ArticlesController < SupportifyController
-    load_and_authorize_resource :class => "Supportify::Article"
+    before_filter :set_article, except: [:new, :index, :create]
     
     # GET /articles
     def index
-      @articles = @articles.where(locale: I18n.locale)
+      @articles = Article.where(locale: I18n.locale)
     end
 
     # GET /articles/1
@@ -15,6 +15,7 @@ module Supportify
 
     # GET /articles/new
     def new
+      @article = Article.new
       @article.locale = I18n.locale
     end
 
@@ -49,9 +50,13 @@ module Supportify
     end
 
     private
-      # Only allow a trusted parameter "white list" through.
-      def article_params
-        params.require(:article).permit(:title, :slug, :locale, :body, :published, :image, :image_cache, :tag_list, :category_list, :admin_tag_list)
-      end
+    # Only allow a trusted parameter "white list" through.
+    def article_params
+      params.require(:article).permit(:title, :slug, :locale, :body, :published, :image, :image_cache, :tag_list, :category_list, :admin_tag_list)
+    end
+    
+    def set_article
+      @article = Article.find(params[:id])
+    end
   end
 end

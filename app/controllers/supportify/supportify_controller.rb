@@ -4,19 +4,6 @@ module Supportify
 
     before_filter :set_locale
 
-    helper_method :current_ability
-
-
-    rescue_from CanCan::AccessDenied do |exception|
-  
-      if request.xhr?
-        render json: { error: exception.message }
-      else
-        flash[:alert] = exception.message
-  
-        redirect_to root_url, status: :unauthorized
-      end
-    end
 
     protected
     
@@ -29,8 +16,5 @@ module Supportify
       self.send(Supportify.current_user_method)
     end
   
-    def current_ability
-      @current_ability ||= Supportify::Ability.new(supportify_user)
-    end
   end
 end
