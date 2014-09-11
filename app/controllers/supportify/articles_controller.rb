@@ -6,7 +6,7 @@ module Supportify
     
     # GET /articles
     def index
-      @articles = Article.where(locale: I18n.locale)
+      @articles ||= Article.where(locale: I18n.locale)
     end
 
     # GET /articles/1
@@ -15,7 +15,7 @@ module Supportify
 
     # GET /articles/new
     def new
-      @article = Article.new
+      @article ||= Article.new
       @article.locale = I18n.locale
     end
 
@@ -25,7 +25,7 @@ module Supportify
 
     # POST /articles
     def create
-      @article = Article.new(article_params)
+      @article ||= Article.new(article_params)
       @article.author = self.send(Supportify.current_user_method)
       if @article.save
         redirect_to @article, notice: 'Article was successfully created.'
@@ -56,7 +56,7 @@ module Supportify
     end
     
     def set_article
-      @article = Article.find(params[:id])
+      @article ||= Article.find(params[:id])
     end
   end
 end

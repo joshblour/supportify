@@ -21,15 +21,10 @@ module Supportify
     validates :slug, uniqueness: true
     validates :locale, inclusion: Supportify.locales.map(&:to_s)
     
+    scope :published, -> {where('published_at IS NOT null')}
     
-    # scope :by_tags,  -> (tags) {where('tags @> ARRAY[?]', [*amenity_ids])}
-    # scope :by_categories,  -> () {where('tags @> ARRAY[?]', [*amenity_ids])}
-    #
-    # scope :by_categories
-    # scope :by_admin_tags
-    #
     [:tags, :categories, :admin_tags].each do |t|
-      scope "by_#{t}", -> (tags) {where(':name @> ARRAY[:tags]', name: t, tags: tags)}
+      scope "by_#{t}", -> (tags) {where(":tags = ANY (#{t})", name: t, tags: tags)}
       
       define_method "#{t.to_s.singularize}_list" do
         self.send(t).join(', ')

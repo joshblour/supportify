@@ -1,1 +1,3 @@
-json.partial! 'article', article: @article
+json.article do
+  json.partial! 'supportify/articles/article', article: @article
+end
