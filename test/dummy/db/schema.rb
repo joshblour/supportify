@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113124459) do
+ActiveRecord::Schema.define(version: 20140910114305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20140113124459) do
     t.datetime "updated_at"
     t.boolean  "published"
     t.string   "image"
+    t.string   "tags",         default: [], array: true
+    t.string   "categories",   default: [], array: true
+    t.string   "admin_tags",   default: [], array: true
   end
 
   create_table "taggings", force: true do |t|

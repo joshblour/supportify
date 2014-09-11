@@ -1,24 +1,27 @@
 <%= simple_form_for(@article) do |f| %>
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+  <div class='row'>
+    <div class='col-sm-6'>
+      <% set_slug_link = link_to 'set from title', '#', id: 'set-slug-from-title' unless Supportify.autoset_slug %>
+      
+      <%= f.input :title %>
+      <%= f.input :slug, label: ("Slug " + set_slug_link).html_safe, input_html: {readonly: Supportify.autoset_slug} %>
+      
+      <div class='row'>
+        <div class='col-sm-6'>
 
-      <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <%= f.input :locale, collection: Supportify.locales, include_blank: false %>
+        </div>
+        <div class='col-sm-6'>
+          <%= f.input :published, as: :select, include_blank: false %>
+        </div>
+      </div>
     </div>
-  <% end %>
-  
-  <%= f.input :title %>
-  <%= f.input :slug, input_html: {readonly: true} %>
-  <%= f.input :locale, collection: Supportify.locales %>
-  <%= f.input :tag_list, input_html: {data: {options: Supportify::Article.tag_counts.map(&:name)}} %>
-  <%= f.input :category_list, input_html: {data: {options: Supportify::Article.category_counts.map(&:name)}} %>
-  <%= f.input :admin_tag_list, input_html: {data: {options: Supportify::Article.admin_tag_counts.map(&:name)}} %>
-  <%= f.input :published %>
-  
+    <div class='col-sm-6'>
+      <%= f.input :tag_list, input_html: {data: {options: tag_options_helper(:tags)}} %>
+      <%= f.input :category_list, input_html: {data: {options: tag_options_helper(:categories)}} %>
+      <%= f.input :admin_tag_list, input_html: {data: {options: tag_options_helper(:admin_tags)}} %>
+    </div>
+  </div>
   <p>
     <label>Thumbnail</label>
     <%= image_tag(@article.image_url(:thumb)) if @article.image? %>
@@ -26,11 +29,12 @@
     <%= f.hidden_field :image_cache %>
   </p>
   <p>  
-    <%= f.input :body, input_html: {class: 'ckeditor'}%>
-  <%#= f.cktext_area :body, :class => "someclass", :ckeditor => {:language => I18n.locale} %>
+    <%#= f.input :body, input_html: {class: 'ckeditor'}%>
+  <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => Supportify.toolbar} } %>
+  
   </p>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-primary'%>
   </div>
 <% end %>

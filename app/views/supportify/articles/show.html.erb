@@ -24,26 +24,26 @@
 
 <p>
   <strong>Tags:</strong>
-  <%= @article.tag_list.to_sentence %>
+  <%= @article.tags.to_sentence %>
 </p>
 
 <p>
   <strong>Categories:</strong>
-  <%= @article.category_list.to_sentence %>
+  <%= @article.categories.to_sentence %>
 </p>
 
 <p>
   <strong>Admin Tags:</strong>
-  <%= @article.admin_tag_list.to_sentence %>
+  <%= @article.admin_tags.to_sentence %>
 </p>
 
 <p>
   <strong>Author:</strong>
-  <%= @article.author_id %>
+  <%= @article.author.send(Supportify.author_name_method) %>
 </p>
 
 <p>
   <strong>Body:</strong>
-  <%= @article.body.html_safe %>
+  <%= @article.body.html_safe if @article.body %>
 </p>
 

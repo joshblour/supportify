@@ -12,15 +12,33 @@ module Supportify
     
     before_save :set_published_at
     after_create :create_for_other_locales
-    
+        
     belongs_to :author, class_name: Supportify.author_class.to_s
-    mount_uploader :image, ImageUploader
     
-    acts_as_taggable_on :tags, :categories, :admin_tags
+    mount_uploader :image, ArticleImageUploader
     
     validates :title, :slug, :locale, :body, presence: true
     validates :slug, uniqueness: true
     validates :locale, inclusion: Supportify.locales.map(&:to_s)
+    
+    
+    # scope :by_tags,  -> (tags) {where('tags @> ARRAY[?]', [*amenity_ids])}
+    # scope :by_categories,  -> () {where('tags @> ARRAY[?]', [*amenity_ids])}
+    #
+    # scope :by_categories
+    # scope :by_admin_tags
+    #
+    [:tags, :categories, :admin_tags].each do |t|
+      scope "by_#{t}", -> (tags) {where(':name @> ARRAY[:tags]', name: t, tags: tags)}
+      
+      define_method "#{t.to_s.singularize}_list" do
+        self.send(t).join(', ')
+      end
+      
+      define_method "#{t.to_s.singularize}_list=" do |string|
+        assign_attributes(t => string.split(',').map(&:strip))
+      end
+    end
     
     private
     

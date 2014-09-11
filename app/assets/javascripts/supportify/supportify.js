@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require ckeditor/init
+//= require ckeditor/config
 //= require select2
 //= require_tree .

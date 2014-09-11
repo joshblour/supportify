@@ -1,18 +1,16 @@
-<%= select_tag :set_locale, options_for_select(Supportify.locales, I18n.locale) %>
-<h1>Listing articles</h1>
+<h1>
+  Support articles
+  <%= select_tag :set_locale, options_for_select(Supportify.locales, I18n.locale), class: 'pull-right' %>
+</h1>
 
-<table>
+<table class='table table-striped'>
   <thead>
     <tr>
-      <th>Thumbnail</th>
       <th>Title</th>
-      <th>Slug</th>
       <th>Locale</th>
       <th>Lists</th>
       <th>Author</th>
       <th>Published at</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -20,20 +18,20 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= image_tag article.image_url(:thumb) %> </td>
         <td><%= article.title %></td>
-        <td><%= article.slug %></td>
         <td><%= article.locale %></td>
         <td>
-          Tag list: <%= article.tag_list.to_sentence %><br/>
-          Category list: <%= article.category_list.to_sentence %><br/>
-          Admin list: <%= article.admin_tag_list.to_sentence %>
+          Tag list: <%= article.tags.to_sentence %><br/>
+          Category list: <%= article.categories.to_sentence %><br/>
+          Admin list: <%= article.admin_tags.to_sentence %>
         </td>
-        <td><%= article.author_id %></td>
+        <td><%= article.author.send(Supportify.author_name_method) %></td>
         <td><%= article.published_at %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', article %> |
+          <%= link_to 'Edit', edit_article_path(article) %> |
+          <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

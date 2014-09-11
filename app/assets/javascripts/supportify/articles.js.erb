@@ -30,12 +30,28 @@
         //this will reload the page, it's likely better to store this until finished
         document.location.search = kvp.join('&'); 
     }
-  
-    $("#article_title, #article_locale").on('change input', function() {
+    
+    function setSlug() {
       title = $('#article_title').val();
       locale = $('#article_locale').find('option:selected').text();
-      $(this).parents('form').find("input[id$='article_slug']").val(convertToSlug(title + '-' + locale));
-    });
+      $('form').find("input[id$='article_slug']").val(convertToSlug(title + '-' + locale));      
+    }
+  
+    <% if Supportify.autoset_slug %>
+      $("#article_title, #article_locale").on('change input', function() {
+        setSlug();
+      });
+      
+    <% else %>
+      $("#set-slug-from-title").on('click', function(e) {
+        setSlug();
+        e.preventDefault();
+      });
+    <% end %>
+    
+    
+    
+
   
     $("#set_locale").on('change', function() {
       insertParam('locale', $(this).find('option:selected').text());
@@ -45,8 +61,7 @@
       function (i, element) {
         var list =  $(element).data('options')
         $(element).select2({
-          tags: list,
-          width: '300px'   
+          tags: list
         });
       });
   });
