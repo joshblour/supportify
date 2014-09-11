@@ -24,7 +24,7 @@ module Supportify
     scope :published, -> {where('published_at IS NOT null')}
     
     [:tags, :categories, :admin_tags].each do |t|
-      scope "by_#{t}", -> (tags) {where(":tags = ANY (#{t})", name: t, tags: tags)}
+      scope "by_#{t}", -> (tags) {where(":name = ANY (:tags)", name: t, tags: tags)}
       
       define_method "#{t.to_s.singularize}_list" do
         self.send(t).join(', ')
