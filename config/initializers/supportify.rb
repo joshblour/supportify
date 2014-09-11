@@ -11,3 +11,6 @@ Supportify.file_storage = :fog
 Supportify.toolbar = 'Full'
 
 Supportify.autoset_slug = false
+
+Supportify.use_ckeditor = true
+

@@ -8,6 +8,7 @@ module Supportify
   mattr_accessor :file_storage
   mattr_accessor :toolbar
   mattr_accessor :autoset_slug
+  mattr_accessor :use_ckeditor
   
   def self.author_class
     @@author_class.constantize

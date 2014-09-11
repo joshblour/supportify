@@ -30,7 +30,11 @@
   </p>
   <p>  
     <%#= f.input :body, input_html: {class: 'ckeditor'}%>
-  <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => Supportify.toolbar} } %>
+  <% if Supportify.use_ckeditor %>
+    <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => Supportify.toolbar} } %>
+  <% else %>
+    <%= f.input :body, :as => :text %>
+  <% end %>
   
   </p>
 
