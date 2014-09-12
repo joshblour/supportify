@@ -12,7 +12,7 @@ module Supportify
     isolate_namespace Supportify
     
     initializer "supportify.assets.precompile" do |app|
-      app.config.assets.precompile += %w(supportify.css supportify.js)
+      app.config.assets.precompile += %w(ckeditor/config.js supportify.css supportify.js)
     end
     
     initializer :append_migrations do |app|
