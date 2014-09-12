@@ -29,5 +29,17 @@ module Supportify
       assert_not_nil article.published_at
       
     end
+    
+  
+    test 'returns articles filtered by tags' do
+      article1 = create(:article, tags: ['a', 'b'], categories: ['w', 'x'], admin_tags: ['r', 's'])
+      article2 = create(:article, tags: ['b', 'c'], categories: ['x', 'y'], admin_tags: ['s', 't'])
+      article3 = create(:article, tags: ['c', 'd'], categories: ['y', 'z'], admin_tags: ['t', 'u'])
+  
+      assert_equal [article1, article2].to_set, Article.by_tags('a', 'b').to_set
+      assert_equal [article2, article3].to_set, Article.by_categories('y', 'z').to_set
+      assert_equal [article1, article3].to_set, Article.by_admin_tags('r', 'u').to_set
+      assert_equal [article2], Article.by_tags('b').by_categories('y').by_admin_tags(['s', 'u'])
+    end
   end
 end

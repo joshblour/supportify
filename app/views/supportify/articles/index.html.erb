@@ -25,7 +25,7 @@
           Category list: <%= article.categories.to_sentence %><br/>
           Admin list: <%= article.admin_tags.to_sentence %>
         </td>
-        <td><%= article.author.send(Supportify.author_name_method) %></td>
+        <td><%= article.author.send(Supportify.author_name_method) if article.author %></td>
         <td><%= article.published_at %></td>
         <td>
           <%= link_to 'Show', article %> |

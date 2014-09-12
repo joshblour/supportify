@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910124305) do
+ActiveRecord::Schema.define(version: 20140910134305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,16 @@ ActiveRecord::Schema.define(version: 20140910124305) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published"
     t.string   "image"
     t.string   "tags",         default: [], array: true
     t.string   "categories",   default: [], array: true
     t.string   "admin_tags",   default: [], array: true
+    t.boolean  "published"
   end
+
+  add_index "supportify_articles", ["admin_tags"], name: "index_supportify_articles_on_admin_tags", using: :gin
+  add_index "supportify_articles", ["categories"], name: "index_supportify_articles_on_categories", using: :gin
+  add_index "supportify_articles", ["tags"], name: "index_supportify_articles_on_tags", using: :gin
 
   create_table "users", force: true do |t|
     t.string   "role"
