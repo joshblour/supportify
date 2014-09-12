@@ -7,7 +7,7 @@ json.categories article.categories
 json.admin_tags article.admin_tags
 json.published_at article.published_at
 
-if defined? truncate_body && truncate_body == true
+if defined?(truncate_body) && truncate_body == true
   json.body article.body.truncate(200)
   json.truncated article.body.length > 200
 else

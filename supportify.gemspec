@@ -21,14 +21,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'carrierwave'
   s.add_dependency "mini_magick"
-  
   s.add_dependency "fog", ">= 1.3.1"
   s.add_dependency "ckeditor"
-  s.add_dependency 'acts-as-taggable-on', '>= 3.0.1'
   s.add_dependency "select2-rails"
   s.add_dependency 'pg'
   s.add_dependency 'pg_search'
-  s.add_dependency "non-stupid-digest-assets"
   
   
   s.add_development_dependency 'factory_girl_rails'
