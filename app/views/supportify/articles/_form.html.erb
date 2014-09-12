@@ -22,20 +22,20 @@
       <%= f.input :admin_tag_list, input_html: {data: {options: tag_options_helper(:admin_tags)}} %>
     </div>
   </div>
+
   <p>
     <label>Thumbnail</label>
     <%= image_tag(@article.image_url(:thumb)) if @article.image? %>
     <%= f.file_field :image %>
     <%= f.hidden_field :image_cache %>
   </p>
+
   <p>  
-    <%#= f.input :body, input_html: {class: 'ckeditor'}%>
-  <% if Supportify.use_ckeditor %>
-    <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => Supportify.toolbar} } %>
-  <% else %>
-    <%= f.input :body, :as => :text %>
-  <% end %>
-  
+    <% if Supportify.use_ckeditor %>
+      <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => Supportify.toolbar} } %>
+    <% else %>
+      <%= f.input :body, :as => :text %>
+    <% end %>  
   </p>
 
   <div class="actions">
