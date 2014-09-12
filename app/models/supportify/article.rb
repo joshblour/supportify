@@ -1,13 +1,15 @@
 module Supportify
   class Article < ActiveRecord::Base
     include PgSearch
-    pg_search_scope :search, 
+    pg_search_scope :text_search, 
       against: {
         title: 'A',
-        body: 'C'
+        categories: 'B',
+        tags: 'C',
+        body: 'D'
       }, 
-      associated_against: {
-        tags: {name: 'B'}
+      :using => {
+        :tsearch => {:dictionary => "english"}
       }
     
     before_save :set_published_at
@@ -22,6 +24,7 @@ module Supportify
     validates :locale, inclusion: Supportify.locales.map(&:to_s)
     
     scope :published, -> {where('published_at IS NOT null')}
+    scope :by_text, -> (term) {text_search term}
     
     [:tags, :categories, :admin_tags].each do |t|
       scope "by_#{t}", -> (*tags) {where("#{t} && ARRAY[?]::varchar[]", tags.flatten)}

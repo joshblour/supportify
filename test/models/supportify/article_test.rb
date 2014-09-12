@@ -41,5 +41,15 @@ module Supportify
       assert_equal [article1, article3].to_set, Article.by_admin_tags('r', 'u').to_set
       assert_equal [article2], Article.by_tags('b').by_categories('y').by_admin_tags(['s', 'u'])
     end
+    
+    test 'full text search with priority' do
+      article1 = create(:article, title: 'xxxxxxx', tags: ['abc', 'xxxx'], categories: ['def', 'xxxx'], admin_tags: ['zxcx', 'sdfkm'], body: 'test123')
+      article2 = create(:article, title: 'abc def', tags: ['hij', 'xxxx'], categories: ['klm', 'xxxx'], admin_tags: ['zxcx', 'sdfkm'], body: 'test123')
+      article3 = create(:article, title: 'xxxxxxx', tags: ['nop', 'xxxx'], categories: ['abc', 'xxxx'], admin_tags: ['zxcx', 'sdfkm'], body: 'test123')
+      article4 = create(:article, title: 'xxxxxxx', tags: ['nop', 'xxxx'], categories: ['qrs', 'xxxx'], admin_tags: ['zxcx', 'sdfkm'], body: 'abc def hij')
+      article5 = create(:article, title: 'xxxxxxx', tags: ['nop', 'xxxx'], categories: ['qrs', 'xxxx'], admin_tags: ['abc', 'ssdfkm'], body: 'test123')
+      
+      assert_equal [article2, article3, article1, article4], Article.text_search('abc')
+    end
   end
 end
