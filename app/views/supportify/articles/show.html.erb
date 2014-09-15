@@ -43,6 +43,6 @@
 
 <p>
   <strong>Body:</strong>
-  <%= @article.body.html_safe if @article.body %>
+  <%= simple_format(@article.body.html_safe) if @article.body %>
 </p>
 
