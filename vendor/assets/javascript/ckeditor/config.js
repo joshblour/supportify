@@ -9,6 +9,8 @@ CKEDITOR.editorConfig = function( config )
         '/',
         ['Format', 'Font', 'FontSize', 'TextColor', 'BGColor' ], ['Styles'],  
         ['Bold','Italic','Underline','Strike'], 
-        ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+        ['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote'],
+        [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]
+        
     ];
 }
